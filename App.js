@@ -1,21 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { Platform } from 'expo-modules-core';
+import { ImageBackground, SafeAreaView, StyleSheet} from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Players from './screens/Players';
+import Teams from './screens/Teams'
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.AndroidSafeArea}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions = {{
+            tabBarAllowFontScaling: true,
+            tabBarLabelStyle: {
+              fontSize: 18,
+              marginBottom: 15,
+            },
+            tabBarIcon: ({ focused, color, size }) => {
+              return
+            }
+          }}
+          >
+          <Tab.Screen name="Players" component={Players}/>
+          <Tab.Screen name="Teams" component={Teams} />
+        </Tab.Navigator>
+      </NavigationContainer>
+
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  AndroidSafeArea: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#3B3B3B',
+    paddingTop: Platform.OS === 'android' ? 25 : 0
   },
 });
+
+
